@@ -1,0 +1,24 @@
+{
+  "name": "uno-css",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.2.5",
+    "@unocss/preset-uno": "^0.52.4",
+    "tsconfig": "workspace:*",
+    "unocss": "^0.52.4"
+  },
+  "devDependencies": {
+    "tsup": "^6.7.0"
+  }
+}
