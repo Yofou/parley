@@ -10,6 +10,48 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-	id String @id @default(uuid())
+model AuthUser {
+  id           String    @id @unique
+  auth_session AuthSession[]
+  auth_key     AuthKey[]
+  username String @unique
+  email String @unique
+
+  guilds_owned Guild[] @relation("guildOwn")
+  guilds_joined Guild[] @relation("guildJoin")
+
+  @@map("auth_user")
+}
+
+model AuthSession {
+  id             String	@id @unique
+  user_id        String
+  active_expires BigInt
+  idle_expires   BigInt
+  auth_user      AuthUser   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_session")
+}
+
+model AuthKey {
+  id              String  @id @unique
+  hashed_password String?
+  user_id         String
+  primary_key     Boolean
+  expires         BigInt?
+  auth_user       AuthUser    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+  @@map("auth_key")
+}
+
+model Guild {
+  id String @id @unique @default(uuid())
+  name String
+  owner AuthUser @relation(name: "guildOwn", references: [id], fields: [ownerId])
+  ownerId String
+  invite_code String
+
+  members AuthUser[] @relation(name: "guildJoin")
 }

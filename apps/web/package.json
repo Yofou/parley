@@ -2,7 +2,7 @@
   "name": "web",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite dev --port 3000 --open",
+    "dev": "./wait-for-it.sh localhost:5432 -- vite dev --port 3000 --open",
     "build": "vite build",
     "package": "vite package",
     "preview": "vite preview",
@@ -12,9 +12,15 @@
     "format": "prettier --write --ignore-path=../../.prettierignore ."
   },
   "dependencies": {
+    "@lucia-auth/adapter-prisma": "^2.0.0",
+    "argon2": "^0.30.3",
+    "lucia-auth": "^1.7.0",
+    "prisma": "workspace:*",
+    "sveltekit-superforms": "^0.8.7",
     "ui": "workspace:*",
     "uno-css": "workspace:*",
-    "unocss": "^0.52.4"
+    "unocss": "^0.52.4",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "latest",
@@ -25,7 +31,7 @@
     "svelte-preprocess": "^4.10.6",
     "tslib": "^2.3.1",
     "typescript": "^4.7.2",
-    "vite": "^4.0.0"
+    "vite": "^4.3.9"
   },
   "type": "module"
 }
