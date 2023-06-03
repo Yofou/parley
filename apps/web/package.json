@@ -12,26 +12,28 @@
     "format": "prettier --write --ignore-path=../../.prettierignore ."
   },
   "dependencies": {
+    "@fontsource/outfit": "^5.0.1",
     "@lucia-auth/adapter-prisma": "^2.0.0",
-    "argon2": "^0.30.3",
     "lucia-auth": "^1.7.0",
     "prisma": "workspace:*",
     "sveltekit-superforms": "^0.8.7",
+    "tailwindcss-hocus": "^0.0.7",
     "ui": "workspace:*",
     "uno-css": "workspace:*",
-    "unocss": "^0.52.4",
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@sveltejs/adapter-auto": "latest",
-    "@sveltejs/kit": "latest",
+    "@sveltejs/adapter-auto": "^2.0.0",
+    "@sveltejs/kit": "^1.5.0",
+    "autoprefixer": "^10.4.14",
     "eslint-config-custom": "workspace:*",
-    "svelte": "^3.44.0",
-    "svelte-check": "^2.7.1",
-    "svelte-preprocess": "^4.10.6",
+    "postcss": "^8.4.24",
+    "svelte": "^3.54.0",
+    "svelte-check": "^3.0.1",
+    "tailwindcss": "^3.3.2",
     "tslib": "^2.3.1",
     "typescript": "^4.7.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.0"
   },
   "type": "module"
 }

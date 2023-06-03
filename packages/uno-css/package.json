@@ -14,9 +14,9 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^20.2.5",
-    "@unocss/preset-uno": "^0.52.4",
-    "tsconfig": "workspace:*",
-    "unocss": "^0.52.4"
+    "tailwindcss": "^3.3.2",
+    "tailwindcss-hocus": "^0.0.7",
+    "tsconfig": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^6.7.0"

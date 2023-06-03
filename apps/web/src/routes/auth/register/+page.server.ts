@@ -1,8 +1,10 @@
 import { z } from 'zod';
-import { superValidate } from 'sveltekit-superforms/server';
+import { message, superValidate } from 'sveltekit-superforms/server';
 import type { Actions, PageServerLoad } from "./$types"
 import { fail, redirect } from '@sveltejs/kit';
 import { auth } from '$lib/server/lucia';
+import { LuciaError } from 'lucia-auth';
+import { PrismaClient, Prisma } from 'prisma';
 
 const schema = z.object({
   username: z.string(),
@@ -11,7 +13,10 @@ const schema = z.object({
   confirm: z.string()
 }).refine(
   (obj) => obj.confirm === obj.password,
-  'Ensure Password matches confirm'
+    {
+    path: ['confirm'],
+    message: 'Ensure Password matches confirm',
+  }
 );
 
 export const load: PageServerLoad = async ({ locals }) => {
@@ -42,9 +47,27 @@ export const actions: Actions = {
           username: form.data.username
 				}
 			});
-			const session = await auth.createSession(user.userId);
+
+			const session = await auth.createSession(user.id);
 			locals.auth.setSession(session);
-		} catch {
+		} catch(e) {
+      console.log(e)
+      if (e instanceof LuciaError) {
+      } else if (e instanceof Prisma.PrismaClientKnownRequestError) {
+        if (e.code === 'P2002') {
+          // TODO: fix this ts error
+          // @ts-ignore,
+          return message(form, [
+            { 
+              message: `${(e.meta?.target as string[])?.[0]} already exists`, 
+              isError: true 
+            }
+          ], {
+            status: 401
+          })
+        }
+      }
+
 			return fail(400, { form });
 		}
 

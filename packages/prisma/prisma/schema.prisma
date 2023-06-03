@@ -5,6 +5,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+  output = "./ERD.png"
+  theme = "dark"
+  mmdcPath = "node_modules/.bin"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
@@ -19,6 +26,7 @@ model AuthUser {
 
   guilds_owned Guild[] @relation("guildOwn")
   guilds_joined Guild[] @relation("guildJoin")
+  guilds_banned Guild[] @relation(name: "guildBanned")
 
   @@map("auth_user")
 }
@@ -54,4 +62,5 @@ model Guild {
   invite_code String
 
   members AuthUser[] @relation(name: "guildJoin")
+  banned AuthUser[] @relation(name: "guildBanned")
 }
