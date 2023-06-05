@@ -1,0 +1,9 @@
+{
+  "entrypoints": {
+    "ssr": {
+      "js": [
+        "auto/ssr.js"
+      ]
+    }
+  }
+}
